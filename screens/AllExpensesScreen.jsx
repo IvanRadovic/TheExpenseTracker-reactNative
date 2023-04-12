@@ -1,10 +1,12 @@
 import { View, Text } from "react-native";
+
+/* --- Components ---  */
+import ExpensesOutput from "../components/Expenses/ExpensesOutput.component";
+
+
+
 const AllExpensesScreen = () => {
-    return (  
-        <View>
-            <Text>Ovo je main Page !!</Text>
-        </View>
-    );
+    return <ExpensesOutput expensesPeriod="Total"/>
 }
  
 export default AllExpensesScreen;

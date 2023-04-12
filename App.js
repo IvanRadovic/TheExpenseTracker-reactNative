@@ -16,6 +16,8 @@ import { GlobalStyles } from './constats/styles';
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
 
+
+/* ----- ExpensesOverView --- BottomNavigator --- */
 const ExpensesOverview = () => {
   return(
     <BottomTabs.Navigator 
