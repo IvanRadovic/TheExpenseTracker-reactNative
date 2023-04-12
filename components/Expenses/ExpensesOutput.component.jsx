@@ -37,6 +37,29 @@ const DUMMY_EXPNESES = [
         description:'Another letter',
         amount: 19.99,
         date: new Date('2021-08-10'),
+    },  {
+        id: 'e6',
+        description:'A pair of trousers',
+        amount: 89.99,
+        date: new Date('2021-01-05'),
+    },
+    {
+        id: 'e7',
+        description:'A some dummy movie',
+        amount: 5.99,
+        date: new Date('2021-12-01'),
+    },
+    {
+        id: 'e8',
+        description:'Some book',
+        amount: 9.99,
+        date: new Date('2021-02-01'),
+    },
+    {
+        id: 'e9',
+        description:'Another letter',
+        amount: 19.99,
+        date: new Date('2021-08-10'),
     },
 ]
 
@@ -56,7 +79,9 @@ export default ExpensesOutput;
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        padding:25,
+        paddingHorizontal:25,
+        paddingTop:24,
+        paddingBottom:0,
         backgroundColor:GlobalStyles.colors.primary700
     }
 })
