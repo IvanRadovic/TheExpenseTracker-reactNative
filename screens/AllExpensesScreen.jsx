@@ -1,12 +1,14 @@
-import { View, Text } from "react-native";
+import { useContext } from "react";
 
 /* --- Components ---  */
 import ExpensesOutput from "../components/Expenses/ExpensesOutput.component";
 
-
+/* ---  Context --- */
+import { ExpensesContext } from "../store/expenses-context";
 
 const AllExpensesScreen = () => {
-    return <ExpensesOutput expensesPeriod="Total"/>
+    const expensesCtx = useContext(ExpensesContext)
+    return <ExpensesOutput expenses={expensesCtx.expenses} expensesPeriod="Total"/>
 }
  
 export default AllExpensesScreen;
