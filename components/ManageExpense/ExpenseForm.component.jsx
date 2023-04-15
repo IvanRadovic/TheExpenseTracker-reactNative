@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import InputField from "./Input.component";
 
 const ExpenseForm = () => {
@@ -6,17 +6,13 @@ const ExpenseForm = () => {
     const amountChangeHandler = () => {  
     }
 
-    const dateCangeHandler = () => {
-      
-    }
-
     return (  
-        <View>
+        <View style={styles.formContainer}>
             <InputField 
                 label="Amount" 
                 textInputConfig={{
                     keyboardType: 'decimal-pad',
-                    onChangeText: {amountChangeHandler},
+                    onChangeText: amountChangeHandler
                 }}
              />
             <InputField 
@@ -24,12 +20,26 @@ const ExpenseForm = () => {
                 textInputConfig={{
                     placeholder:'YYYY-MM-DD',
                     maxLength:10,
-                    onChangeText:{dateCangeHandler},
+                    onChangeText:() => {}
                 }}
             />
-            <InputField label="Description" />
+            <InputField 
+                label="Description" 
+                textInputConfig={{
+                    multiline:true,
+                    // autoCapitalize:'words', 'sentences'..
+                    // autocorrect:false, // default is true
+
+                }}
+            />
         </View>
     );
 }
  
 export default ExpenseForm;
+
+const styles = StyleSheet.create({
+   formContainer:{
+    marginBottom: 15
+   } 
+});
