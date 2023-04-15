@@ -2,7 +2,7 @@ import { View, Text, TextInput, StyleSheet } from "react-native";
 
 import { GlobalStyles } from "../../constats/styles"
 
-const InputField = ({ label, textInputConfig }) => {
+const InputField = ({ label, style,  textInputConfig }) => {
 
     let inputStyles = [styles.input];
 
@@ -12,7 +12,7 @@ const InputField = ({ label, textInputConfig }) => {
     }
 
     return (  
-        <View style={styles.inputContainer}>
+        <View style={[styles.inputContainer, style]}>
             <Text style={styles.labelStyle}>{label}</Text>
             <TextInput style={inputStyles} {...textInputConfig} />
         </View>
