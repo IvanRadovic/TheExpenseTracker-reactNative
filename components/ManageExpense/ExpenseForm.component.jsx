@@ -1,13 +1,18 @@
-import { View, StyleSheet, Text} from "react-native";
-import InputField from "./Input.component";
 import { useState } from "react";
+import { View, StyleSheet, Text} from "react-native";
 
-const ExpenseForm = () => {
+/* -- Components -- */
+import InputField from "./Input.component";
+import CustomButtons from "../UI/CustomButtons.component";
+import { getFormattedDate } from "../../utils/date";
+
+const ExpenseForm = ({onCancel, onSubmit, submitButtonLabel, defaultValues}) => {
 
     const [inputsValue, setInputValues] = useState({
-        amount:'',
-        date:'',
-        description:''
+        /* ''' Checking of defaultValues if they existring --- */
+        amount:defaultValues ? defaultValues.amount.toString() : '',
+        date:defaultValues ? getFormattedDate(defaultValues.date) : '',
+        description: defaultValues ?  defaultValues.description.toString() : ''
     });
 
     const inputChangeHandler = (inputIdentifier, enteredValue) => {  
@@ -17,6 +22,16 @@ const ExpenseForm = () => {
                 [inputIdentifier]: enteredValue
             }
         });
+    }
+
+    const submitHanlder = () => {
+        const expenseData = {
+            amount: +inputsValue.amount,
+            date: new Date(inputsValue.date),
+            description: inputsValue.description
+        }
+
+        onSubmit(expenseData);
     }
 
     return (  
@@ -54,6 +69,14 @@ const ExpenseForm = () => {
 
                 }}
             />
+            <View style={styles.buttons}>
+                <CustomButtons style={styles.button} mode="flat" onPress={onCancel}>
+                Cancel
+                </CustomButtons>
+                <CustomButtons style={styles.button} onPress={submitHanlder}>
+                {submitButtonLabel}
+                </CustomButtons>
+            </View>
         </View>
     );
 }
@@ -78,5 +101,14 @@ const styles = StyleSheet.create({
    },
    rowInput:{
     flex:1
-   }
+   },
+   buttons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    minWidth: 120,
+    marginHorizontal: 8,
+  },
 });
