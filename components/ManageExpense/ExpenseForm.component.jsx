@@ -1,8 +1,11 @@
-import { View, StyleSheet, Text} from "react-native";
-import InputField from "./Input.component";
 import { useState } from "react";
+import { View, StyleSheet, Text} from "react-native";
 
-const ExpenseForm = () => {
+/* -- Components -- */
+import InputField from "./Input.component";
+import CustomButtons from "../UI/CustomButtons.component";
+
+const ExpenseForm = ({ onCancel, onSubmit, submitButtonLabel}) => {
 
     const [inputsValue, setInputValues] = useState({
         amount:'',
@@ -17,6 +20,16 @@ const ExpenseForm = () => {
                 [inputIdentifier]: enteredValue
             }
         });
+    }
+
+    const submitHanlder = () => {
+        const expenseData = {
+            amount: +inputsValue.amount,
+            date: new Date(inputsValue.date),
+            description: inputsValue.description
+        }
+
+        onSubmit(expenseData);
     }
 
     return (  
@@ -54,6 +67,14 @@ const ExpenseForm = () => {
 
                 }}
             />
+            <View style={styles.buttons}>
+                <CustomButtons style={styles.button} mode="flat" onPress={onCancel}>
+                Cancel
+                </CustomButtons>
+                <CustomButtons style={styles.button} onPress={submitHanlder}>
+                {submitButtonLabel}
+                </CustomButtons>
+            </View>
         </View>
     );
 }
@@ -78,5 +99,14 @@ const styles = StyleSheet.create({
    },
    rowInput:{
     flex:1
-   }
+   },
+   buttons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    minWidth: 120,
+    marginHorizontal: 8,
+  },
 });
