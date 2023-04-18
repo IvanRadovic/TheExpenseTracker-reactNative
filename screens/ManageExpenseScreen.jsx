@@ -16,6 +16,9 @@ function ManageExpense({ route, navigation }) {
   const editedExpenseId = route.params?.expenseId;
   const isEditing = !!editedExpenseId;
 
+  /* -- For selected Expense to show up on screen when we tap --- */
+  const selectedExpense = expensesCtx.expenses.find((expense) => expense.id === editedExpenseId);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       title: isEditing ? 'Edit Expense' : 'Add Expense',
@@ -42,7 +45,12 @@ function ManageExpense({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <ExpenseForm  onSubmit={confirmHandler} submitButtonLabel={isEditing ? "Update" : "Add"} onCancel={cancelHandler} />
+      <ExpenseForm  
+        onSubmit={confirmHandler} 
+        submitButtonLabel={isEditing ? "Update" : "Add"} 
+        onCancel={cancelHandler}
+        defaultValues={selectedExpense} 
+      />
       {isEditing && (
         <View style={styles.deleteContainer}>
           <IconButton
