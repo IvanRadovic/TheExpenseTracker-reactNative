@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import CustomButtons from '../components/UI/CustomButtons.component';
 import IconButton from '../components/UI/IconButton.component';
 import ExpenseForm from '../components/ManageExpense/ExpenseForm.component';
+import { storeExpense } from '../utils/http';
 /* ---- Global styling ---- */
 import { GlobalStyles } from '../constats/styles';
 /* --- Context ---- */
@@ -38,7 +39,9 @@ function ManageExpense({ route, navigation }) {
     if (isEditing) {
       expensesCtx.updateExpense(editedExpenseId, expenseData);
     } else {
+      storeExpense(expenseData);
       expensesCtx.addExpense(expenseData);
+
     }
     navigation.goBack();
   }
