@@ -9,30 +9,32 @@ import { getDateMinusDays } from "../utils/date";
 import { fetchExpenses } from "../utils/http";
 
 
-const RecentExpensesScreen = () => {
-    const expensesCtx = useContext(ExpensesContext);
+function RecentExpensesScreen() {
+  const expensesCtx = useContext(ExpensesContext);
 
-    // useEffect(() => {
-    //     async function getExpenses() {
-    //         const expenses = await fetchExpenses();
-    //     }
-    //     getExpenses();
-    // },[]);
+  useEffect(() => {
+    async function getExpenses() {
+      const expenses = await fetchExpenses();
+      expensesCtx.setExpenses(expenses);
+    }
 
-    const recentExpenses = expensesCtx.expenses.filter((expense) => {
-        const today = new Date();
-        const date7daysAgo = getDateMinusDays(today, 7);
+    getExpenses();
+  }, []);
 
-        return (expense.date >= date7daysAgo) && (expense.date <= today);
-    });
+  const recentExpenses = expensesCtx.expenses.filter((expense) => {
+    const today = new Date();
+    const date7DaysAgo = getDateMinusDays(today, 7);
 
-    return (
-        <ExpensesOutput 
-            expenses={recentExpenses} 
-            expensesPeriod='Last 7 days' 
-            fallBackText="No expenses register for last 7 days!" 
-        />
-    );
+    return expense.date >= date7DaysAgo && expense.date <= today;
+  });
+
+  return (
+    <ExpensesOutput
+      expenses={recentExpenses}
+      expensesPeriod="Last 7 Days"
+      fallbackText="No expenses registered for the last 7 days."
+    />
+  );
 }
  
 export default RecentExpensesScreen;
