@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 
 /* --- Compoentns ---- */
 import ExpensesOutput from "../components/Expenses/ExpensesOutput.component";
+import LoadingOverlay from "../components/UI/LoadingOverlay.component";
 /* --- Context --- */
 import { ExpensesContext } from "../store/expenses-context";
 
@@ -10,16 +11,24 @@ import { fetchExpenses } from "../utils/http";
 
 
 function RecentExpensesScreen() {
+
+  const [isFetching, setIsFetching] = useState(true);
   const expensesCtx = useContext(ExpensesContext);
 
   useEffect(() => {
     async function getExpenses() {
+      setIsFetching(true);
       const expenses = await fetchExpenses();
+      setIsFetching(false);
       expensesCtx.setExpenses(expenses);
     }
 
     getExpenses();
   }, []);
+
+  if(isFetching) {
+    return <LoadingOverlay />
+  }
 
   const recentExpenses = expensesCtx.expenses.filter((expense) => {
     const today = new Date();
