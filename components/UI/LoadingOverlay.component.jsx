@@ -22,4 +22,4 @@ const styles = StyleSheet.create({
         backgroundColor:GlobalStyles.colors.primary700
 
     }
-})
+});
